@@ -21,13 +21,13 @@ def record_audio(filename, duration=10, sample_rate=44100):
 
 def create_recordings_folder():
     # Create a folder to save recordings with current date and time
-    folder_name = f"Recordings_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+    folder_name = f"data\\Recordings_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
     os.makedirs(folder_name, exist_ok=True)
     return folder_name
 
 def recording_script():
     folder_name = create_recordings_folder()
-    values = list(range(100, -1, -10))
+    values = list(range(100, -1, -1))
     text_file = "C:\\Users\\Denis\\Downloads\\Apps\\FanControl\\Configurations\\testing.sensor"
 
     for value in values:
@@ -37,15 +37,16 @@ def recording_script():
         
         print(f"Value {value} written to {text_file}")
         
-        # Wait for 5 seconds
-        time.sleep(5)
+        # Wait for 3 seconds
+        time.sleep(3)
         
         # Record audio with the value as part of the filename
         filename = os.path.join(folder_name, f"audio_{value}.wav")
-        record_audio(filename)
+        record_audio(filename, duration=5)
 
 if __name__ == "__main__":
-    recording_script()
+    while True:
+        recording_script()
 
 
 

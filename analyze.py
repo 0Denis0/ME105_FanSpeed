@@ -22,6 +22,7 @@ def analyze_folder(folder_path):
                 
                 # Perform analysis on the audio file
                 file_path = os.path.join(folder_path, filename)
+                print(f"Analyzing audio recording for fan speed {value}")
                 average_volume, freqs, fft_magnitude = analyze_audio(file_path)
                 
                 volumes.append(average_volume)
@@ -41,7 +42,11 @@ def analyze_folder(folder_path):
     np.savez(npz_file, values=values, freqs=freqs, spectral_data=spectral_data)
     print(f"Spectral data saved to {npz_file}")
 
-    # Create the Value vs Volume plot
+    # plotVolumes(values, volumes) # Create the Value vs Volume plot
+    # plotSpectra(values, freqs, spectral_data) # Create the spectral distribution heatmap
+    
+
+def plotVolumes(values, volumes):
     plt.figure(figsize=(10, 5))
     plt.plot(values, volumes, marker='o')
     plt.xlabel("Value")
@@ -50,7 +55,7 @@ def analyze_folder(folder_path):
     plt.grid()
     plt.show()
 
-    # Create the spectral distribution heatmap
+def plotSpectra(values, freqs, spectal_data):
     spectral_data = np.array(spectral_data)
     plt.figure(figsize=(12, 8))
     sns.heatmap(spectral_data.T, xticklabels=values, yticklabels=freqs, cmap="viridis", cbar_kws={'label': 'Magnitude'})
@@ -77,7 +82,14 @@ def analyze_audio(file_path):
 
     return average_volume, freqs, fft_magnitude
 
+# def plotFromFile(folder_path):
+#     plotVolumes()
+#     plotSpectra()
 
 if __name__ == "__main__":
-    folder_path = "Recordings_20241029_195328"  # Update with your folder path
-    analyze_folder(folder_path)
+    # folder_path = "data\\Recordings_20241029_195328"  # Update with your folder path
+    data_path = "data"
+    folders = [os.path.join(data_path, folder) for folder in os.listdir(data_path) if os.path.isdir(os.path.join(data_path, folder))]
+    for folder in folders:
+        analyze_folder(folder)
+        print(f"Finished analysis of {folder}")
