@@ -28,5 +28,9 @@ The heatmap below visualizes the spectral distribution of noise, with fan speed 
 
 ![Spectral Data](Assets/spectra_plot_db.png)
 
+Taking the zero-noise calibrations as decibel reference values effectively removes constant background noise, though it also increases the streakiness of the spectrogram and offsets the dB values. The below figure shows these results, but calculated for the average spectra of the three quietest recordings at each fan speed.
+
+![Spectral Data](Assets/avgSpectraBkgdRemoved_plot_db.png)
+
 ### Potential Improvements:
-Potential improvements to this experiment include finding a way to disable the small, independent motherboard fan. In addition taking average spectral data of representative recordings could yield a clearer final spectrogram.
+Potential improvements to this experiment include finding a way to disable the small, independent motherboard fan. In addition, exploring methods to achieve a cleaner final spectrogram could be beneficial.
