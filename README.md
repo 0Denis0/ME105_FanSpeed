@@ -1,4 +1,4 @@
-# ME105_FanSpeed
+# ME 105 Fan Speed Experiment
 
 This project explores the relationship between computer fan speed, noise volume, and the spectral distribution of emitted noise. The goal is to analyze how changes in fan speed affect noise levels and identify dominant frequencies and trends.
 
