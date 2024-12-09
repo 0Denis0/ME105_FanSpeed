@@ -1,5 +1,6 @@
 import os
 import time
+import numpy as np
 from datetime import datetime
 import sounddevice as sd
 from scipy.io.wavfile import write
@@ -21,17 +22,33 @@ def record_audio(filename, duration=10, sample_rate=44100):
 
 def create_recordings_folder():
     # Create a folder to save recordings with current date and time
-    folder_name = f"data2\\Recordings_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+    folder_name = f"dataSilence\\Recordings_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
     os.makedirs(folder_name, exist_ok=True)
     return folder_name
 
 def recording_script():
     folder_name = create_recordings_folder()
-    step = 5
-    values = list(range(100, 0 - step, -step)) + list(range(0,100 + step, step))
-    print(values)
+    step = 1
+    values = np.zeros((0,100)) # list(range(100, 0 - step, -step))
+    # print(values)
     text_file = "C:\\Users\\Denis\\Downloads\\Apps\\FanControl\\Configurations\\testing.sensor"
 
+    for value in values:
+        # Write the current value to the text file
+        with open(text_file, 'w') as file:
+            file.write(str(value))
+        
+        print(f"Value {value} written to {text_file}")
+        
+        # Wait for 3 seconds
+        time.sleep(3)
+        
+        # Record audio with the value as part of the filename
+        filename = os.path.join(folder_name, f"audio_{value}.wav")
+        record_audio(filename, duration=5)
+
+    folder_name = create_recordings_folder()
+    values = list(range(0,100 + step, step))
     for value in values:
         # Write the current value to the text file
         with open(text_file, 'w') as file:

@@ -88,8 +88,11 @@ def analyze_audio(file_path):
 
 if __name__ == "__main__":
     # folder_path = "data\\Recordings_20241029_195328"  # Update with your folder path
-    data_path = "data2"
+    data_path = "data3"
     folders = [os.path.join(data_path, folder) for folder in os.listdir(data_path) if os.path.isdir(os.path.join(data_path, folder))]
     for folder in folders:
         analyze_folder(folder)
         print(f"Finished analysis of {folder}")
+
+    zero, _, _ = analyze_audio("dataSilence//Recordings_20241209_092922//audio_1.wav")
+    print(f"Zero reference: {zero}")
